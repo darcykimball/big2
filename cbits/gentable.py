@@ -140,27 +140,34 @@ def classify(hand):
 
 def dump_enum_decl():
     # XXX: Ghetto
-    with open("handtype.h", "w") as f:
-        f.write("typedef enum {\n")
+    with open("handtype.hpp", "w") as f:
+        f.write("namespace big2 {\n\n\n")
+        f.write("enum class hand_type : unsigned char {\n")
         for type_ in HandType:
             f.write(f"  {type_.name},\n")
-        f.write("} HandType;")
+        f.write("};\n")
+
+        f.write("\n\nextern hand_type hand_type_table[];\n")
+
+        f.write("\n\n} // namespace big2")
 
 
 def dump_table(dump_hands=False):
     # XXX: Ghetto
-    with open("handtypetable.c", "w") as f:
-        f.write('#include "handtype.h"\n\n')
+    with open("handtypetable.cpp", "w") as f:
+        f.write('#include "handtype.hpp"\n\n')
 
-        f.write("HandType hand_type_table[] = {\n")
+        f.write("namespace big2 {\n\n\n")
+        f.write("hand_type hand_type_table[] = {\n")
         for h in hands():
             cards = list(map(Card, h))
             hand_type = classify(cards)
-            f.write(f"  {hand_type.name},")
+            f.write(f"  hand_type::{hand_type.name},")
             if dump_hands:
                 f.write(f" // {cards}")
             f.write("\n")
-        f.write("};")
+        f.write("};\n")
+        f.write("\n\n} // namespace big2")
         
 
 def main():
@@ -169,10 +176,13 @@ def main():
     )
     parser.add_argument("--dump-hands", action="store_true",
                         help="Dump hand representations with the table")
+    parser.add_argument("--dump-header-only", action="store_true",
+                        help="Dump the table's associated header only")
     args = parser.parse_args()
 
     dump_enum_decl()
-    dump_table(args.dump_hands)
+    if not args.dump_header_only:
+        dump_table(args.dump_hands)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 
 #include "big2table.hpp"
 #include "comboindex.hpp"
-#include "handtype.h"
+#include "handtype.hpp"
 #include "debug.hpp" // FIXME: remove!
 
 
@@ -23,8 +23,6 @@ static auto to_array(PyObject* cards) {
 
 
 PyObject* big2table_lookup_hand(PyObject* /* self */, PyObject* args) {
-  std::cerr << "Hello.\n";
-
   PyObject* cards = NULL; // The sole argument: a list of cards
 
   // FIXME: Make safer using 'O!' or otherwise.
@@ -38,8 +36,6 @@ PyObject* big2table_lookup_hand(PyObject* /* self */, PyObject* args) {
   }
 
   // TODO: Also check validity of cards
-
-  std::cerr << "Huh.\n";
 
   // Get the hand's index.
   std::size_t index;
@@ -64,21 +60,18 @@ PyObject* big2table_lookup_hand(PyObject* /* self */, PyObject* args) {
       return NULL;
   }
 
-  std::cerr << "Uh.\n";
-
   // Offset the index according to hand size.
   for (std::size_t i = 0; i < len - 1; ++i) {
     index += detail::NUM_HANDS_BY_SIZE[i];
   }
 
-  auto hand_value = hand_type_table[index];
-
-  std::cerr << "What?\n";
+  auto hand_value = big2::hand_type_table[index];
 
   // FIXME: Really, this should be a discriminated union that's returned, but
   // it seems like it'd be clunky to define the Python (enum) type in C. For
   // now, let's leave the glue code to Pythonland.
-  return PyLong_FromSize_t(hand_value);
+  using underlying_type = std::underlying_type_t<decltype(hand_value)>;
+  return PyLong_FromUnsignedLong(static_cast<underlying_type>(hand_value));
 }
 
 

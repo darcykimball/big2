@@ -1,4 +1,4 @@
-handtype.h
-handtypetable.c
+handtype.h*
+handtypetable.c*
 venv/
 build/
