@@ -144,7 +144,7 @@ def dump_enum_decl():
         f.write("namespace big2 {\n\n\n")
         f.write("enum class hand_type : unsigned char {\n")
         for type_ in HandType:
-            f.write(f"  {type_.name},\n")
+            f.write(f"  {type_.name} = {type_.value},\n")
         f.write("};\n")
 
         f.write("\n\nextern hand_type hand_type_table[];\n")
