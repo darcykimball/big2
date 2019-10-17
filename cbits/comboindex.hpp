@@ -23,8 +23,8 @@ constexpr std::size_t choose(std::size_t n, std::size_t k) {
   if (k * 2 > n) k = n - k;
   if (k == 0) return 1;
 
-  int result = n;
-  for(int i = 2; i <= k; ++i) {
+  std::size_t result = n;
+  for(std::size_t i = 2; i <= k; ++i) {
       result *= (n - i + 1);
       result /= i;
   }
