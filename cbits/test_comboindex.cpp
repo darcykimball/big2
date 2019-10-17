@@ -33,8 +33,8 @@ int main() {
             std::cout << "i, j, k, l, m = "
               << i << ", "
               << j << ", "
-              << k << ", " 
-              << l << ", " 
+              << k << ", "
+              << l << ", "
               << m << ", " << '\n';
             auto index = combo::index<5>(52, { i, j, k, l, m });
             std::cout << " has index " << index << '\n';
