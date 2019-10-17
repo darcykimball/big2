@@ -4,7 +4,8 @@
 import argparse
 import itertools
 
-from enum import Enum
+
+from hand import Card, HandType
 
 
 """
@@ -40,44 +41,6 @@ The cards (0-51) are ordered in the following way:
 ...
 51 -> Ks
 """
-
-
-class Card():
-    """
-    Thin convenience wrapper for our specific card representation.
-    """
-
-    SUITS = ["c", "d", "h", "s"]
-    RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-
-    def __init__(self, value):
-        self.value = value
-
-    def rank(self):
-        return self.value // 4
-
-    def suit(self):
-        return self.value % 4
-
-    def __str__(self):
-        return self.RANKS[self.rank()] + self.SUITS[self.suit()]
-
-    def __repr__(self):
-        return str(self)
-
-
-class HandType(Enum):
-    """
-    Closed enumeration of hand types.
-    """
-    ILLEGAL = 0
-    SINGLE = 1
-    PAIR = 2
-    TWOPAIR = 3
-    TRIPS = 4
-    STRAIGHT = 5
-    FULLHOUSE = 6
-    QUADS = 7
 
 
 def hands():
