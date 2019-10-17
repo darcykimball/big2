@@ -2,3 +2,4 @@ handtype.h*
 handtypetable.c*
 venv/
 build/
+__pycache__/
