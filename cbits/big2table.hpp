@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <python3.7m/Python.h>
+#include <Python.h>
 
 
 #include "comboindex.hpp"
