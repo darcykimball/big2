@@ -4,3 +4,4 @@ big2.cabal
 *.out
 *.o
 *.lock
+.*.swp
