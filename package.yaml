@@ -25,6 +25,7 @@ dependencies:
 - general-games
 - monad-coroutine
 - mtl
+- tensorflow
 
 library:
   source-dirs: src

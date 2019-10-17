@@ -37,7 +37,9 @@ packages:
 # Dependency packages to be pulled from upstream that are not in the resolver
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
-# extra-deps: []
+extra-deps:
+- tensorflow-0.2.0.1@sha256:adebe983e70c10ed2a27defeeb11fae6071874e898a1100e39f6409ff195b9ca
+- tensorflow-proto-0.2.0.1@sha256:843eb75f1b4eff7892208f1e800cd7dd3f9e01b1526b8a2855f6f702d87aef43
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
@@ -62,3 +64,7 @@ packages:
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
+
+nix:
+  enable: true
+  packages: [libtensorflow]
